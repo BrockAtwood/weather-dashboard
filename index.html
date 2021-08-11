@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/e1f6ee9dc9.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="style.css" />
+    <title>Weather Forecast For Your Trips</title>
+  </head>
+  <body>
+      <header class="bg-light text-dark text-center size 100px" style="padding: 10px;">
+          <h1 <i class="far fa-clock"></i>Weather Dashboard <i class="far fa-clock"></i></h1>
+      </header>
+
+      <div class="container-fluid">
+          <div class="row">
+              <!-- Left side Column -->
+                <div class="col-sm-3 p-3">
+                    <div class="row- p-3" id="search-bar">
+                        <form>
+                            <input type="text" placeholder="Enter City" id="city-input">
+                            <button id="search-btn"><i class="fa fa-search"></i></button>
+                            <button id="clear-btn">Clear Search History</button>
+                        </form>
+                    </div>
+                    <!-- Search history -->
+                    <div id="search-history" class="row btn-group"></div>  
+                </div>
+                    <!-- Results from search right column -->
+                    <div class="col-sm-9">
+                    <!-- Top section with current weather -->
+                    <div class="row pl-4 border" id="current-weather"><img id="cityIcon" src="" alt="Weather Icon"
+                        <div class="col">
+                            <p>Date: <span id="date"></span></p>
+                            <p>Temperature: <span id="temp"></span>&deg;F</p>
+                            <p>Humidity: <span id="humidity"></span>%</p>
+                            <p>Wind Speed: <span id="wind"></span> MPH</p>
+                            <p id="uvIndexColor"> UV Index: <span id="uvIndex"></span></p>
+                        </div>
+                    </div>
+                    <!-- Botton section with 5 day forcast -->
+                    <div class="row p-4 border" id="future-forcast">
+                        <div class="col">
+                        <h3>5-Day Forcast</h3>
+                        <div class="card-deck row">
+                            <div
+                                id="forecast-1" class="card text-center bg-light text-dark p-2 mb-3" style="max-width: 10rem; min-width: 10rem">
+                                <h5></h5>
+                                <img class="mx-auto p-2" src="" />
+                                <p>Temp: <span class="temp"></span>&deg; F</p>
+                                <p>Wind: <span class="wind"></span> MPH</p>
+                                <p>Humidity: <span class="humidity"></span>%</p>
+                            </div>
+                            <div
+                                id="forecast-2" class="card text-center bg-light text-dark p-2 mb-3" style="max-width: 10rem; min-width: 10rem">
+                                <h5></h5>
+                                <img class="mx-auto p-2" src="" />
+                                <p>Temp: <span class="temp"></span>&deg; F</p>
+                                <p>Wind: <span class="wind"></span> MPH</p>
+                                <p>Humidity: <span class="humidity"></span>%</p>
+                            </div>
+                            <div
+                                id="forecast-3" class="card text-center bg-light text-dark p-2 mb-3" style="max-width: 10rem; min-width: 10rem">
+                                <h5></h5>
+                                <img class="mx-auto p-2" src="" />
+                                <p>Temp: <span class="temp"></span>&deg; F</p>
+                                <p>Wind: <span class="wind"></span> MPH</p>
+                                <p>Humidity: <span class="humidity"></span>%</p>
+                            </div>
+                            <div
+                                id="forecast-4" class="card text-center bg-light text-dark p-2 mb-3" style="max-width: 10rem; min-width: 10rem">
+                                <h5></h5>
+                                <img class="mx-auto p-2" src="" />
+                                <p>Temp: <span class="temp"></span>&deg; F</p>
+                                <p>Wind: <span class="wind"></span> MPH</p>
+                                <p>Humidity: <span class="humidity"></span>%</p>
+                            </div>
+                            <div
+                                id="forecast-5" class="card text-center bg-light text-dark p-2 mb-3" style="max-width: 10rem; min-width: 10rem">
+                                <h5></h5>
+                                <img class="mx-auto p-2" src="" />
+                                <p>Temp: <span class="temp"></span>&deg; F</p>
+                                <p>Wind: <span class="wind"></span> MPH</p>
+                                <p>Humidity: <span class="humidity"></span>%</p>
+                            </div>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+      <!-- Notes for layout 
+    side bar, search form, search history, 
+        Main content, weather data with current weather, below is the 5-day forcast-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
