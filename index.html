@@ -12,23 +12,23 @@
   </head>
   <body>
       <header class="bg-light text-dark text-center size 100px" style="padding: 10px;">
-          <h1 <i class="far fa-clock"></i>Weather Dashboard <i class="far fa-clock"></i></h1>
+          <h1 <i class="far fa-clock size 100px"></i>Weather Dashboard <i class="far fa-clock size 100px"></i></h1>
       </header>
 
       <div class="container-fluid">
           <div class="row">
               <!-- Left side Column -->
                 <div class="col-sm-3 col-xl-2 p-3">
-                        <form id="search-form" role="search" class="d-flex align-items-center mb-3">
+                        <form id="search-form" role="search">
                             <input type="search" class="form-control" placeholder="Enter City" id="search-input"/>
-                            <button id="search-btn"><i class="fa fa-search"></i></button>
+                            <button type="submit" id="search-btn"><i class="fa fa-search"></i></button>
                             <button id="clear-btn">Clear Search History</button>
                         </form>
                     <!-- Search history -->
                         <div id="search-history" class="btn-group-vertical"></div>  
                 </div>
                     <!-- Results from search right column -->
-                <main class+"col-sm-9 pt-3" role="main">
+                <main class="col-sm-9 pt-3" role="main">
                     <!-- Top section with current weather -->
                     <div class="p-4 border mb-3" id="current-weather" style="display: none">
                         <h2>
@@ -94,7 +94,7 @@
     side bar, search form, search history, 
         Main content, weather data with current weather, below is the 5-day forcast-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="script.js"></script>
   </body>
 </html>
