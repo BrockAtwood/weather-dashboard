@@ -18,34 +18,31 @@
       <div class="container-fluid">
           <div class="row">
               <!-- Left side Column -->
-                <div class="col-sm-3 p-3">
-                    <div class="row- p-3" id="search-bar">
-                        <form>
-                            <input type="text" placeholder="Enter City" id="city-input">
+                <div class="col-sm-3 col-xl-2 p-3">
+                        <form id="search-form" role="search" class="d-flex align-items-center mb-3">
+                            <input type="search" class="form-control" placeholder="Enter City" id="search-input"/>
                             <button id="search-btn"><i class="fa fa-search"></i></button>
                             <button id="clear-btn">Clear Search History</button>
                         </form>
-                    </div>
                     <!-- Search history -->
-                    <div id="search-history" class="row btn-group"></div>  
+                        <div id="search-history" class="btn-group-vertical"></div>  
                 </div>
                     <!-- Results from search right column -->
-                    <div class="col-sm-9">
+                <main class+"col-sm-9 pt-3" role="main">
                     <!-- Top section with current weather -->
-                    <div class="row pl-4 border" id="current-weather"><img id="cityIcon" src="" alt="Weather Icon"
-                        <div class="col">
-                            <p>Date: <span id="date"></span></p>
-                            <p>Temperature: <span id="temp"></span>&deg;F</p>
-                            <p>Humidity: <span id="humidity"></span>%</p>
-                            <p>Wind Speed: <span id="wind"></span> MPH</p>
-                            <p id="uvIndexColor"> UV Index: <span id="uvIndex"></span></p>
-                        </div>
+                    <div class="p-4 border mb-3" id="current-weather" style="display: none">
+                        <h2>
+                            <strong id="current-city"></strong>&nbsp;<img id="current-icon" src="" alt="weather icon"/>
+                        </h2>
+                        <p>Temperature: <span id="temp"></span>&deg;F</p>
+                        <p>Humidity: <span id="humidity"></span>%</p>
+                        <p>Wind Speed: <span id="wind"></span> MPH</p>
+                        <p id="uvIndexColor"> UV Index: <span id="uvIndex"></span></p>
                     </div>
                     <!-- Botton section with 5 day forcast -->
-                    <div class="row p-4 border" id="future-forcast">
-                        <div class="col">
+                    <div class="row p-4 border" id="future-forcast" style="display: none">
                         <h3>5-Day Forcast</h3>
-                        <div class="card-deck row">
+                        <div class="card-deck">
                             <div
                                 id="forecast-1" class="card text-center bg-light text-dark p-2 mb-3" style="max-width: 10rem; min-width: 10rem">
                                 <h5></h5>
@@ -86,17 +83,11 @@
                                 <p>Wind: <span class="wind"></span> MPH</p>
                                 <p>Humidity: <span class="humidity"></span>%</p>
                             </div>
-                            </div>
                         </div>
-
-
-
-
                     </div>
-                </div>
+                </main>
             </div>
         </div>
-    </div>
 
 
       <!-- Notes for layout 
