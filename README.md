@@ -2,6 +2,10 @@
 
 Weather Dashboard API Practice (Homework #6)
 
+Screenshot:
+![Screen Shot 2021-08-10 at 10 34 33 PM](https://user-images.githubusercontent.com/87385012/128971030-34e76bfe-2add-48b5-81d1-0ca59253b4ff.png)
+
+
 Description:
 
 ## User Story
@@ -31,9 +35,6 @@ THEN I am presented with a 5-day forecast that displays the date, an icon repres
 
 WHEN I click on a city in the search history
 THEN I am again presented with current and future conditions for that city
-
-
-Screenshot:
 
 
 Link:
