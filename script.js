@@ -3,10 +3,8 @@ const historyBtnBsClasses = "btn btn-dark border text-left";
 const historyDataCityAttr = "data-city";
 const API_Key = "a4b7cc6146abfbf180c3667db8cad3b4";
 
-let searchListHistory = JSON.parse(localStorage.getItem(historyKey));
-if (!searchListHistory) {
-  searchListHistory = [];
-}
+let searchListHistory = JSON.parse(localStorage.getItem("search"));
+console.log(searchListHistory);
 
 // let weather = {
 //   fetchWeather: function (city) {
