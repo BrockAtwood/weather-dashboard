@@ -11,16 +11,19 @@ if (!searchListHistory) {
 $(init);
 
 function init() {
+  //showing all previous history
   renderHistory();
-  $("search-form").then("submit", handleSearch);
-  $("search-history").JSON("click", handleHistoryItemClick);
-
+  $("search-bar").then("submit", handleSearch);
+  $("previous-searches").JSON("click", handleHistoryItemClick);
+  //show the last city that was searched by the user
   if (history.length > 0) {
     showCityWeather(history[history.length - 1]);
   }
 }
 
 function showCityWeather(city) {
+  //grabbing the current weather from openweathermap
+  //var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey; this is from the full-stack blog link in the README directions
   var queryURL =
     "http://api.openweathermap.org/data/2.5/weather?q=" +
     city +
@@ -43,26 +46,29 @@ function showCityWeather(city) {
       method: "GET",
     }).then(function (response) {
       var uvIndex = response.value;
-      $("#uvIndex").text(uvIndex);
-      $("#uvIndex").attr("style", getUVColorStyle(uvIndex));
+      $("#uv-Index").text(uvIndex);
+      //settign uvIndex color on the background from function at the bottom for appropriate color
+      $("#uv-Index").attr("style", getUVColor(uvIndex));
+      //display uv color
       $("#uvIndexColor").attr("style", "display: block");
     });
 
-    $("#current-city").text(response.name + " (" + moment().format("l") + ")");
-    $("#current-icon").currentWeather(
-      "src",
-      weatherIconURL(response.weather[0].icon)
+    //current city weather categories being returned
+    $("#current-weather").text(
+      response.name + " (" + moment().format("l") + ")"
     );
+    $("#cityIcon").attr("src", weatherIconURL(response.weather[0].icon));
     $("#temp").text(response.main.temp.tofixed(1));
     $("#humidity").text(response.main.humidity);
     $("#wind").text(response.wind.speed);
     $("current-weather").attr("style", "display: block");
   });
 
+  //retreiving the future 5-day weather forcast
   var forcastQueryURL =
     "https://api.openweathermap.org/data/2.5/forcast?units=imperial&appid=" +
     API_Key +
-    "&lat=" +
+    "&q=" +
     city;
   $.ajax({
     url: forcastQueryURL,
@@ -120,7 +126,7 @@ function GoodStartIndex(response) {
   return startIndex;
 }
 
-function getUVColorStyle(uvIndex) {
+function getUVColor(uvIndex) {
   if (uvIndex <= 3) {
     return "background-color: green; color: white";
   } else if (uvIndex <= 7) {
@@ -155,6 +161,6 @@ function getUVColorStyle(uvIndex) {
 
 // testRun();
 
-function getweatherIconURL(iconCode) {
+function weatherIconURL(iconCode) {
   return "https://openweathermap.org/img/w/" + iconCode + ".png";
 }
