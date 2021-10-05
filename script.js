@@ -1,33 +1,57 @@
 const historyKey = "weatherCitySearchHistory";
 const historyBtnBsClasses = "btn btn-dark border text-left";
 const historyDataCityAttr = "data-city";
-const API_Key = "714c68372a87fcad429b4ef3a4b1ece0";
+const API_Key = "a4b7cc6146abfbf180c3667db8cad3b4";
 
-var searchListHistory = JSON.parse(localStorage.getItem(historyKey));
+let searchListHistory = JSON.parse(localStorage.getItem(historyKey));
 if (!searchListHistory) {
   searchListHistory = [];
 }
+
+// let weather = {
+//   fetchWeather: function (city) {
+//     fetch(
+//       "http://api.openweathermap.org/data/2.5/weather?q=" +
+//         city +
+//         "&units=metric&appid=" +
+//         API_Key
+//     )
+//       .then((response) => response.json())
+//       .then((data) => console.log(data));
+//   },
+//   displayWeather: function (data) {
+//     const { name } = data;
+//     const { icon, description } = data.weather;
+//     const { temp, humidity } = data.main;
+//     const { speed } = data.wind;
+//     console.log(name, icon, description, temp, humidity, speed);
+//     document.querySelector(".city").innerText = "Weather in " + name;
+//     document.querySelector(".icon").src =
+//       "https://openweathermap.org/img/w/" + icon + "@2x.png";
+//   },
+// };
 
 $(init);
 
 function init() {
   //showing all previous history
   renderTheHistory();
-  $("search-bar").then("submit", handleSearching);
-  $("previous-searches").JSON("click", handleHistoryItems);
+  $("search-bar").on("submit", handleSearching);
+  $("previous-searches").on("click", handleHistoryItems);
   //show the last city that was searched by the user
-  if (history.length > 0) {
-    showCityWeather(history[history.length - 1]);
+  if (searchListHistory.length > 0) {
+    showCityWeather(searchListHistory[searchListHistory.length - 1]);
   }
 }
 
 function showCityWeather(city) {
   //grabbing the current weather from openweathermap
   //var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey; this is from the full-stack blog link in the README directions
+
   var queryURL =
-    "http://api.openweathermap.org/data/2.5/weather?q=" +
+    "http://api.openweathermap.org/data/2.5/weather?&units=imperial&appid=" +
     city +
-    "&appid=" +
+    "?q=" +
     API_Key;
 
   $.ajax({
@@ -40,14 +64,14 @@ function showCityWeather(city) {
       "&lat=" +
       response.coord.lat +
       "&lon=" +
-      response.coord.long;
+      response.coord.lon;
     $.ajax({
       url: uvQueryURL,
       method: "GET",
     }).then(function (response) {
       var uvIndex = response.value;
       $("#uv-Index").text(uvIndex);
-      //settign uvIndex color on the background from function at the bottom for appropriate color
+      //setting uvIndex color on the background from function at the bottom for appropriate color
       $("#uv-Index").attr("style", getUVColor(uvIndex));
       //display uv color
       $("#uvIndexColor").attr("style", "display: block");
@@ -66,10 +90,10 @@ function showCityWeather(city) {
 
   //retreiving the future 5-day weather forcast
   var forcastQueryURL =
-    "https://api.openweathermap.org/data/2.5/forcast?units=imperial&appid=" +
-    API_Key +
-    "&q=" +
-    city;
+    "https://api.openweathermap.org/data/2.5/forcast?q=" +
+    city +
+    "&appid=" +
+    API_Key;
   $.ajax({
     url: forcastQueryURL,
     method: "GET",
@@ -112,7 +136,7 @@ function handleHistoryItems(event) {
 //creating button on each of the previous searched cities to re-render in the data feild cards if the user chooses to look back at past searches
 function renderTheHistory() {
   var searchingHistory = $("#previous-search").empty();
-  history.forEach((city) => {
+  searchListHistory.forEach((city) => {
     var btn = $("<button>").addClass(historyBtnBsClasses);
     btn.attr(historyDataCityAttr, city);
     btn.text(city);
@@ -134,9 +158,9 @@ function GoodStartIndex(response) {
 
 //adding to history searches list
 function addHistoryCity(city) {
-  if (!history.inculdes(city)) {
-    history.pushState(city);
-    localStorage.setItem(historyKey, JSON.stringify(history));
+  if (!searchListHistory.inculdes(city)) {
+    searchListHistoryistory.push(city);
+    localStorage.setItem(historyKey, JSON.stringify(searchListHistory));
     renderTheHistory();
   }
 }
