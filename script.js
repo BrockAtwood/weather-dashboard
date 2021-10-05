@@ -12,9 +12,9 @@ $(init);
 
 function init() {
   //showing all previous history
-  renderHistory();
-  $("search-bar").then("submit", handleSearch);
-  $("previous-searches").JSON("click", handleHistoryItemClick);
+  renderTheHistory();
+  $("search-bar").then("submit", handleSearching);
+  $("previous-searches").JSON("click", handleHistoryItems);
   //show the last city that was searched by the user
   if (history.length > 0) {
     showCityWeather(history[history.length - 1]);
@@ -74,58 +74,74 @@ function showCityWeather(city) {
     url: forcastQueryURL,
     method: "GET",
   }).then(function (response) {
-    var listIndex = GoodStartIndex(response);
-    var list = response.list;
+    var listingIndex = GoodStartIndex(response);
+    var listing = response.listing;
 
+    //for loop to update the 5-day forcast
     for (var i = 1; i <= 5; i++) {
-      var dayCard = $("#forecast-" + i);
-      dayCard.find("h5").text(moment(list[listIndex].dt * 1000).format("l"));
-      dayCard
+      var cardDay = $("#forecast-" + i);
+      cardDay
+        .find("h5")
+        .text(moment(listing[listingIndex].dt * 1000).format("l"));
+      cardDay
         .find("img")
-        .attr("src", getWeatherIconURL(list[listIndex].weather[0].icon));
-      dayCard.find(".temp").text(list[listIndex].main.temp.toFixed(1));
-      dayCard.find(".humidity").text(list[listIndex].main.humidity);
-      listIndex += 8;
+        .attr("src", WeatherIconURL(listing[listingIndex].weather[0].icon));
+      cardDay.find(".temp").text(listing[listingIndex].main.temp.toFixed(1));
+      cardDay.find(".humidity").text(listing[listingIndex].main.humidity);
+      listingIndex += 8;
     }
     $("#future-forecast").attr("style", "display: block");
   });
 }
 
-function handleSearch(event) {
+//get search box user input, clear the search box, then add the search to history and show what the weather is for the searched city
+function handleSearching(event) {
   event.preventDefault();
-  var city = $("#search-input").val().trim();
-  $("#search-input").val("");
-  addHistoryItem(city);
+  var city = $("#city-input").val().trim();
+  $("#city-input").val("");
+  addHistoryCity(city);
   showCityWeather(city);
 }
 
-function handleHistoryItemClick(event) {
+function handleHistoryItems(event) {
   if (event.target.matches("button")) {
     showCityWeather($(event.target).attr(historyDataCityAttr));
   }
 }
 
-function renderHistory() {
-  var searchHistory = $("#search-history").empty();
+//creating button on each of the previous searched cities to re-render in the data feild cards if the user chooses to look back at past searches
+function renderTheHistory() {
+  var searchingHistory = $("#previous-search").empty();
   history.forEach((city) => {
     var btn = $("<button>").addClass(historyBtnBsClasses);
     btn.attr(historyDataCityAttr, city);
     btn.text(city);
-    searchHistory.append(btn);
+    searchingHistory.append(btn);
   });
 }
 
+//5-day 3-hour forcasts starting point
 function GoodStartIndex(response) {
-  var list = response.list;
-  var startIndex = 8;
+  var listing = response.listing;
+  var startingIndex = 8;
   do {
-    startIndex--;
-    indexHour = parseInt(moment(list[startIndex].dt * 1000).format("H"));
-  } while (indexHour >= 15 && startIndex > 0);
+    startingIndex--;
+    indexHour = parseInt(moment(listing[startingIndex].dt * 1000).format("H"));
+  } while (indexHour >= 15 && startingIndex > 0);
 
-  return startIndex;
+  return startingIndex;
 }
 
+//adding to history searches list
+function addHistoryCity(city) {
+  if (!history.inculdes(city)) {
+    history.pushState(city);
+    localStorage.setItem(historyKey, JSON.stringify(history));
+    renderTheHistory();
+  }
+}
+
+//creatings color background for the uvIndex depending on where it comes in for the ranges
 function getUVColor(uvIndex) {
   if (uvIndex <= 3) {
     return "background-color: green; color: white";
@@ -138,29 +154,7 @@ function getUVColor(uvIndex) {
   }
 }
 
-// function testRun() {
-//   fetch(
-//     "https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoiYnJvY2thdHdvb2QiLCJhIjoiY2tzNjZtbTl6MXBmYTJ1bzRxa3h2b3c4ZyJ9.1TV5os70q08fmaAj6ne5CA"
-//   )
-//     .then((response) => response.json())
-//     .then((data1) => {
-//       console.log(data1);
-//       var long = data1.features[0].geometry.coordinates[0];
-//       var lat = data1.features[0].geometry.coordinates[1];
-//       fetch(
-//         "https://api.openweathermap.org/data/2.5/onecall?lat=" +
-//           lat +
-//           "&lon=" +
-//           long +
-//           "&appid=714c68372a87fcad429b4ef3a4b1ece0"
-//       )
-//         .then((response) => response.json())
-//         .then((data2) => console.log(data2));
-//     });
-// }
-
-// testRun();
-
+//getting a weather icon that matches the current weather data
 function weatherIconURL(iconCode) {
   return "https://openweathermap.org/img/w/" + iconCode + ".png";
 }
