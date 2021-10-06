@@ -30,8 +30,6 @@ console.log(searchListHistory);
 // };
 $("#search-bar").on("submit", handleSearching);
 $("#previous-searches").on("click", handleHistoryItems);
-//clear search history button
-$("clear-btn").on("submit", localStorage.clear());
 
 init();
 
