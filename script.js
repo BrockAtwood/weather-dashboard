@@ -70,20 +70,25 @@ function showCityWeather(city) {
     $("#wind").text(response.wind.speed);
     $("#current-weather").attr("style", "display: block");
     console.log({ response });
+
     var uvQueryURL =
-      "https://api.openweather.org/data/2.5/uvi?appid=" +
-      API_Key +
-      "&lat=" +
+      // https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
+
+      "https://api.openweathermap.org/data/2.5/onecall?lat=" +
       response.coord.lat +
       "&lon=" +
-      response.coord.lon;
+      response.coord.lon +
+      "&exclude=" +
+      "&appid=" +
+      API_Key;
+
     $.ajax({
       url: uvQueryURL,
       method: "GET",
     }).then(function (UVresponse) {
       var uvIndex = response.value;
       console.log({ UVresponse });
-      $("#uv-Index").text(uvIndex);
+      $("#uv-Index").text(UVresponse.current.uvi);
       //setting uvIndex color on the background from function at the bottom for appropriate color
       $("#uv-Index").attr("style", getUVColor(uvIndex));
       //display uv color
@@ -188,9 +193,15 @@ function getUVColor(uvIndex) {
   } else if (uvIndex <= 10) {
     return "background-color: red; color: white";
   } else {
-    return "background-color: purple; color white";
+    return "background-color: purple; color: white";
   }
 }
+//clear search history button
+const clearSearchHistory = $("clear-btn");
+
+clearSearchHistory.on("click", function () {
+  localStorage.clear();
+});
 
 //getting a weather icon that matches the current weather data
 function weatherIconURL(iconCode) {
