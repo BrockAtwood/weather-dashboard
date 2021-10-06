@@ -3,7 +3,7 @@ const historyBtnBsClasses = "btn btn-dark border text-left";
 const historyDataCityAttr = "data-city";
 const API_Key = "a4b7cc6146abfbf180c3667db8cad3b4";
 
-let searchListHistory = JSON.parse(localStorage.getItem("search"));
+let searchListHistory = JSON.parse(localStorage.getItem(historyKey)) || [];
 console.log(searchListHistory);
 
 // let weather = {
@@ -28,14 +28,15 @@ console.log(searchListHistory);
 //       "https://openweathermap.org/img/w/" + icon + "@2x.png";
 //   },
 // };
+$("#search-bar").on("submit", handleSearching);
+$("#previous-searches").on("click", handleHistoryItems);
 
-$(init);
+init();
 
 function init() {
   //showing all previous history
   renderTheHistory();
-  $("search-bar").on("submit", handleSearching);
-  $("previous-searches").on("click", handleHistoryItems);
+
   //show the last city that was searched by the user
   if (searchListHistory.length > 0) {
     showCityWeather(searchListHistory[searchListHistory.length - 1]);
@@ -43,21 +44,32 @@ function init() {
 }
 
 function showCityWeather(city) {
+  console.log({ city });
   //grabbing the current weather from openweathermap
   //var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + APIKey; this is from the full-stack blog link in the README directions
 
   var queryURL =
-    "http://api.openweathermap.org/data/2.5/weather?&units=imperial&appid=" +
+    "http://api.openweathermap.org/data/2.5/weather?q=" +
     city +
-    "?q=" +
+    "&appid=" +
     API_Key;
 
   $.ajax({
     url: queryURL,
     method: "GET",
   }).then(function (response) {
+    $("#current-weather").text(
+      response.name + " (" + moment().format("l") + ")"
+    );
+    $("#cityIcon").attr("src", weatherIconURL(response.weather[0].icon));
+    console.log($("#cityIcon"));
+    $("#temp").text(response.main.temp.toFixed(1));
+    $("#humidity").text(response.main.humidity);
+    $("#wind").text(response.wind.speed);
+    $("#current-weather").attr("style", "display: block");
+    console.log({ response });
     var uvQueryURL =
-      "https://api.openweather.org/data/2.5uvi?appid=" +
+      "https://api.openweather.org/data/2.5/uvi?appid=" +
       API_Key +
       "&lat=" +
       response.coord.lat +
@@ -66,8 +78,9 @@ function showCityWeather(city) {
     $.ajax({
       url: uvQueryURL,
       method: "GET",
-    }).then(function (response) {
+    }).then(function (UVresponse) {
       var uvIndex = response.value;
+      console.log({ UVresponse });
       $("#uv-Index").text(uvIndex);
       //setting uvIndex color on the background from function at the bottom for appropriate color
       $("#uv-Index").attr("style", getUVColor(uvIndex));
@@ -76,19 +89,11 @@ function showCityWeather(city) {
     });
 
     //current city weather categories being returned
-    $("#current-weather").text(
-      response.name + " (" + moment().format("l") + ")"
-    );
-    $("#cityIcon").attr("src", weatherIconURL(response.weather[0].icon));
-    $("#temp").text(response.main.temp.tofixed(1));
-    $("#humidity").text(response.main.humidity);
-    $("#wind").text(response.wind.speed);
-    $("current-weather").attr("style", "display: block");
   });
 
   //retreiving the future 5-day weather forcast
   var forcastQueryURL =
-    "https://api.openweathermap.org/data/2.5/forcast?q=" +
+    "https://api.openweathermap.org/data/2.5/forecast?q=" +
     city +
     "&appid=" +
     API_Key;
@@ -97,7 +102,7 @@ function showCityWeather(city) {
     method: "GET",
   }).then(function (response) {
     var listingIndex = GoodStartIndex(response);
-    var listing = response.listing;
+    var listing = response.list;
 
     //for loop to update the 5-day forcast
     for (var i = 1; i <= 5; i++) {
@@ -107,9 +112,10 @@ function showCityWeather(city) {
         .text(moment(listing[listingIndex].dt * 1000).format("l"));
       cardDay
         .find("img")
-        .attr("src", WeatherIconURL(listing[listingIndex].weather[0].icon));
+        .attr("src", weatherIconURL(listing[listingIndex].weather[0].icon));
       cardDay.find(".temp").text(listing[listingIndex].main.temp.toFixed(1));
       cardDay.find(".humidity").text(listing[listingIndex].main.humidity);
+      cardDay.find(".wind").text(listing[listingIndex].main.wind);
       listingIndex += 8;
     }
     $("#future-forecast").attr("style", "display: block");
@@ -133,7 +139,8 @@ function handleHistoryItems(event) {
 
 //creating button on each of the previous searched cities to re-render in the data feild cards if the user chooses to look back at past searches
 function renderTheHistory() {
-  var searchingHistory = $("#previous-search").empty();
+  var searchingHistory = $("#previous-searches");
+  searchingHistory.empty();
   searchListHistory.forEach((city) => {
     var btn = $("<button>").addClass(historyBtnBsClasses);
     btn.attr(historyDataCityAttr, city);
@@ -144,7 +151,7 @@ function renderTheHistory() {
 
 //5-day 3-hour forcasts starting point
 function GoodStartIndex(response) {
-  var listing = response.listing;
+  var listing = response.list;
   var startingIndex = 8;
   do {
     startingIndex--;
@@ -156,8 +163,8 @@ function GoodStartIndex(response) {
 
 //adding to history searches list
 function addHistoryCity(city) {
-  if (!searchListHistory.inculdes(city)) {
-    searchListHistoryistory.push(city);
+  if (!searchListHistory.includes(city)) {
+    searchListHistory.push(city);
     localStorage.setItem(historyKey, JSON.stringify(searchListHistory));
     renderTheHistory();
   }

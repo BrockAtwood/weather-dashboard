@@ -12,7 +12,7 @@
   </head>
   <body>
       <header class="bg-success text-dark text-center size 100px" style="padding: 10px;">
-          <h1 <i class="far fa-clock"></i>Weather Dashboard <i class="far fa-clock"></i></h1>
+          <h1> <i class="far fa-clock"></i>Weather Dashboard <i class="far fa-clock"></i></h1>
       </header>
 
       <div class="container-fluid">
@@ -22,9 +22,9 @@
                     <div class="row- p-3" id="search-bar">
                         <form>
                             <input type="text" placeholder="Enter City Here" id="city-input">
-                            <button type="submit" id="search-btn"><i class="fa fa-search-plus"></i></button>
-                            <button type="submit" class="bg-success text-dark fw-bold" id="clear-btn">Clear Search History</button>
+                            <button type="submit" id="search-btn"><i class="fa fa-search-plus"></i></button> 
                         </form>
+                        <button class="bg-success text-dark fw-bold" id="clear-btn">Clear Search History</button>
                     </div>
                     <!-- Search history -->
                     <div id="previous-searches" class="row btn-group"></div>  
@@ -32,7 +32,8 @@
                     <!-- Results from search right column -->
                     <div class="col-sm-9">
                     <!-- Top section with current weather -->
-                    <div class="row pl-4 border" id="current-weather"><img id="cityIcon" src="" alt="Weather Icon"
+                    <div class="row pl-4 border"><img id="cityIcon" src="" alt="Weather Icon">
+                        <p id="current-weather"></p>
                         <div class="col">
                             <p>Date: <span id="date"></span></p>
                             <p>Temperature: <span id="temp"></span>&deg;F</p>
