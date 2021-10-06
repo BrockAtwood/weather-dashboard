@@ -92,7 +92,17 @@ function showCityWeather(city) {
       console.log({ UVresponse });
       $("#uv-Index").text(UVresponse.current.uvi);
       //setting uvIndex color on the background from function at the bottom for appropriate color
-      $("#uv-Index").attr("style", getUVColor(uvIndex));
+      $("#uv-Index").attr("style", function getUVColor(uvIndex) {
+        if (uvIndex < 3.0) {
+          return "background-color: green; color: white";
+        } else if (uvIndex < 7.0) {
+          return "background-color: yellow; color: black";
+        } else if (uvIndex < 10.0) {
+          return "background-color: red; color: black";
+        } else {
+          return "background-color: purple; color: white";
+        }
+      });
       //display uv color
       $("#uvIndexColor").attr("style", "display: block");
     });
@@ -187,17 +197,6 @@ function addHistoryCity(city) {
 }
 
 //creatings color background for the uvIndex depending on where it comes in for the ranges
-function getUVColor(uvIndex) {
-  if (uvIndex <= 3) {
-    return "background-color: green; color: white";
-  } else if (uvIndex <= 7) {
-    return "background-color: orange; color: white";
-  } else if (uvIndex <= 10) {
-    return "background-color: red; color: white";
-  } else {
-    return "background-color: purple; color: white";
-  }
-}
 
 //getting a weather icon that matches the current weather data
 function weatherIconURL(iconCode) {
