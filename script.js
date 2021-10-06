@@ -63,7 +63,9 @@ function showCityWeather(city) {
     );
     $("#cityIcon").attr("src", weatherIconURL(response.weather[0].icon));
     console.log($("#cityIcon"));
-    $("#temp").text(response.main.temp.toFixed(1));
+    $("#temp").text(
+      ((response.main.temp.toFixed(1) - 273.15) * 1.8 + 32).toFixed(2)
+    );
     $("#humidity").text(response.main.humidity);
     $("#wind").text(response.wind.speed);
     $("#current-weather").attr("style", "display: block");
@@ -113,7 +115,14 @@ function showCityWeather(city) {
       cardDay
         .find("img")
         .attr("src", weatherIconURL(listing[listingIndex].weather[0].icon));
-      cardDay.find(".temp").text(listing[listingIndex].main.temp.toFixed(1));
+      cardDay
+        .find(".temp")
+        .text(
+          (
+            (listing[listingIndex].main.temp.toFixed(1) - 273.15) * 1.8 +
+            32
+          ).toFixed(2)
+        );
       cardDay.find(".humidity").text(listing[listingIndex].main.humidity);
       cardDay.find(".wind").text(listing[listingIndex].main.wind);
       listingIndex += 8;
