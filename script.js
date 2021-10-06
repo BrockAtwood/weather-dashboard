@@ -89,6 +89,11 @@ function showCityWeather(city) {
       console.log({ UVresponse });
       $("#uv-Index").text(UVresponse.current.uvi);
       //setting uvIndex color on the background from function at the bottom for appropriate color
+      console.log($("#uv-Index").text(UVresponse.current.uvi));
+      var sVal = $("#uv-Index").text(UVresponse.current.uvi);
+      var iNum = parseInt(sVal);
+      console.log(iNum);
+
       $("#uv-Index").attr("style", function getUVColor(uvIndex) {
         if (uvIndex <= 3.0) {
           return "background-color: green; color: white";
