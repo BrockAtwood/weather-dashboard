@@ -88,18 +88,20 @@ function showCityWeather(city) {
     }).then(function (UVresponse) {
       console.log({ UVresponse });
       $("#uv-Index").text(UVresponse.current.uvi);
+      var uvNumber = UVresponse.current.uvi;
+      console.log(typeof uvNumber);
       //setting uvIndex color on the background from function at the bottom for appropriate color
       console.log($("#uv-Index").text(UVresponse.current.uvi));
-      var sVal = $("#uv-Index").text(UVresponse.current.uvi);
+      var sVal = $("#uv-Index").text(uvNumber);
       var iNum = parseInt(sVal);
       console.log(iNum);
 
-      $("#uv-Index").attr("style", function getUVColor(uvIndex) {
-        if (uvIndex <= 3.0) {
+      $("#uv-Index").attr("style", function getUVColor() {
+        if (uvNumber <= 3.0) {
           return "background-color: green; color: white";
-        } else if (uvIndex <= 7.0) {
+        } else if (uvNumber <= 7.0 && uvNumber > 3.0) {
           return "background-color: yellow; color: black";
-        } else if (uvIndex <= 10.0) {
+        } else if (uvNumber <= 10.0 && uvNumber > 7.0) {
           return "background-color: red; color: black";
         } else {
           return "background-color: purple; color: white";
