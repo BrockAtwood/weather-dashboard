@@ -124,7 +124,7 @@ function showCityWeather(city) {
           ).toFixed(2)
         );
       cardDay.find(".humidity").text(listing[listingIndex].main.humidity);
-      cardDay.find(".wind").text(listing[listingIndex].main.wind);
+      cardDay.find(".wind").text(listing[listingIndex].wind.speed);
       listingIndex += 8;
     }
     $("#future-forecast").attr("style", "display: block");
