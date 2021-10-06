@@ -86,16 +86,15 @@ function showCityWeather(city) {
       url: uvQueryURL,
       method: "GET",
     }).then(function (UVresponse) {
-      var uvIndex = response.value;
       console.log({ UVresponse });
       $("#uv-Index").text(UVresponse.current.uvi);
       //setting uvIndex color on the background from function at the bottom for appropriate color
       $("#uv-Index").attr("style", function getUVColor(uvIndex) {
-        if (uvIndex < 3.0) {
+        if (uvIndex <= 3.0) {
           return "background-color: green; color: white";
-        } else if (uvIndex < 7.0) {
+        } else if (uvIndex <= 7.0) {
           return "background-color: yellow; color: black";
-        } else if (uvIndex < 10.0) {
+        } else if (uvIndex <= 10.0) {
           return "background-color: red; color: black";
         } else {
           return "background-color: purple; color: white";
