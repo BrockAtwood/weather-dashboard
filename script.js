@@ -30,6 +30,8 @@ console.log(searchListHistory);
 // };
 $("#search-bar").on("submit", handleSearching);
 $("#previous-searches").on("click", handleHistoryItems);
+//clear search history button
+$("clear-btn").on("submit", localStorage.clear());
 
 init();
 
@@ -196,14 +198,10 @@ function getUVColor(uvIndex) {
     return "background-color: purple; color: white";
   }
 }
-//clear search history button
-const clearSearchHistory = $("clear-btn");
-
-clearSearchHistory.on("click", function () {
-  localStorage.clear();
-});
 
 //getting a weather icon that matches the current weather data
 function weatherIconURL(iconCode) {
   return "https://openweathermap.org/img/w/" + iconCode + ".png";
 }
+
+// $("clear-btn").on("submit", localStorage.clear());
