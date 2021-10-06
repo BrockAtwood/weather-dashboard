@@ -8,11 +8,11 @@
     <script src="https://kit.fontawesome.com/e1f6ee9dc9.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="style.css" />
-    <title>Weather Forecast For Your Trips</title>
+    <title>Weather Forecast For Current day and Future Trips</title>
   </head>
   <body>
-      <header class="bg-light text-dark text-center size 100px" style="padding: 10px;">
-          <h1 <i class="far fa-clock"></i>Weather Dashboard <i class="far fa-clock"></i></h1>
+      <header class="bg-success text-dark text-center size 100px" style="padding: 10px;">
+          <h1> <i class="far fa-clock"></i>Weather Dashboard <i class="far fa-clock"></i></h1>
       </header>
 
       <div class="container-fluid">
@@ -21,67 +21,66 @@
                 <div class="col-sm-3 p-3">
                     <div class="row- p-3" id="search-bar">
                         <form>
-                            <input type="text" placeholder="Enter City" id="city-input">
-                            <button id="search-btn"><i class="fa fa-search"></i></button>
-                            <button id="clear-btn">Clear Search History</button>
+                            <input type="text" placeholder="Enter City Here" id="city-input">
+                            <button type="submit" id="search-btn"><i class="fa fa-search-plus"></i></button> 
                         </form>
                     </div>
                     <!-- Search history -->
-                    <div id="search-history" class="row btn-group"></div>  
+                    <div id="previous-searches" class="row btn-group"></div>  
                 </div>
                     <!-- Results from search right column -->
                     <div class="col-sm-9">
                     <!-- Top section with current weather -->
-                    <div class="row pl-4 border" id="current-weather"><img id="cityIcon" src="" alt="Weather Icon"
+                    <div class="row pl-4 border"><img id="cityIcon" src="" alt="Weather Icon">
+                        <p id="current-weather"></p>
                         <div class="col">
-                            <p>Date: <span id="date"></span></p>
                             <p>Temperature: <span id="temp"></span>&deg;F</p>
                             <p>Humidity: <span id="humidity"></span>%</p>
                             <p>Wind Speed: <span id="wind"></span> MPH</p>
-                            <p id="uvIndexColor"> UV Index: <span id="uvIndex"></span></p>
+                            <p id="uvIndexColor"> UV Index: <span id="uv-Index"></span></p>
                         </div>
                     </div>
                     <!-- Botton section with 5 day forcast -->
-                    <div class="row p-4 border" id="future-forcast">
-                        <div class="col">
-                        <h3>5-Day Forcast</h3>
-                        <div class="card-deck row">
+                    <div class="row p-9 border text-center" id="future-forcast">
+                        <div class="col bg-success text-dark fw-bold">
+                        <h3>5-Day Forcast </h3>
+                        <div class="card-deck row justify-content-center">
                             <div
-                                id="forecast-1" class="card text-center bg-light text-dark p-2 mb-3" style="max-width: 10rem; min-width: 10rem">
+                                id="forecast-1" class="card text-center bg-light text-dark p-2 mb-3" style="max-width: 15rem; min-width: 15rem">
                                 <h5></h5>
-                                <img class="mx-auto p-2" src="" />
+                                <img class="mx-auto p-3" src="" />
                                 <p>Temp: <span class="temp"></span>&deg; F</p>
                                 <p>Wind: <span class="wind"></span> MPH</p>
                                 <p>Humidity: <span class="humidity"></span>%</p>
                             </div>
                             <div
-                                id="forecast-2" class="card text-center bg-light text-dark p-2 mb-3" style="max-width: 10rem; min-width: 10rem">
+                                id="forecast-2" class="card text-center bg-light text-dark p-2 mb-3" style="max-width: 15rem; min-width: 15rem">
                                 <h5></h5>
-                                <img class="mx-auto p-2" src="" />
+                                <img class="mx-auto p-3" src="" />
                                 <p>Temp: <span class="temp"></span>&deg; F</p>
                                 <p>Wind: <span class="wind"></span> MPH</p>
                                 <p>Humidity: <span class="humidity"></span>%</p>
                             </div>
                             <div
-                                id="forecast-3" class="card text-center bg-light text-dark p-2 mb-3" style="max-width: 10rem; min-width: 10rem">
+                                id="forecast-3" class="card text-center bg-light text-dark p-2 mb-3" style="max-width: 15rem; min-width: 15rem">
                                 <h5></h5>
-                                <img class="mx-auto p-2" src="" />
+                                <img class="mx-auto p-3" src="" />
                                 <p>Temp: <span class="temp"></span>&deg; F</p>
                                 <p>Wind: <span class="wind"></span> MPH</p>
                                 <p>Humidity: <span class="humidity"></span>%</p>
                             </div>
                             <div
-                                id="forecast-4" class="card text-center bg-light text-dark p-2 mb-3" style="max-width: 10rem; min-width: 10rem">
+                                id="forecast-4" class="card text-center bg-light text-dark p-2 mb-3" style="max-width: 15rem; min-width: 15rem">
                                 <h5></h5>
-                                <img class="mx-auto p-2" src="" />
+                                <img class="mx-auto p-3" src="" />
                                 <p>Temp: <span class="temp"></span>&deg; F</p>
                                 <p>Wind: <span class="wind"></span> MPH</p>
                                 <p>Humidity: <span class="humidity"></span>%</p>
                             </div>
                             <div
-                                id="forecast-5" class="card text-center bg-light text-dark p-2 mb-3" style="max-width: 10rem; min-width: 10rem">
+                                id="forecast-5" class="card text-center bg-light text-dark p-2 mb-3" style="max-width: 15rem; min-width: 15rem">
                                 <h5></h5>
-                                <img class="mx-auto p-2" src="" />
+                                <img class="mx-auto p-3" src="" />
                                 <p>Temp: <span class="temp"></span>&deg; F</p>
                                 <p>Wind: <span class="wind"></span> MPH</p>
                                 <p>Humidity: <span class="humidity"></span>%</p>

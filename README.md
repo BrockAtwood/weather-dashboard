@@ -3,8 +3,7 @@
 Weather Dashboard API Practice (Homework #6)
 
 Screenshot:
-![Screen Shot 2021-08-10 at 10 34 33 PM](https://user-images.githubusercontent.com/87385012/128971030-34e76bfe-2add-48b5-81d1-0ca59253b4ff.png)
-
+![Screenshot](./images/screenshot.png)
 
 Description:
 
